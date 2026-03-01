@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
 
         const { organizationId } = await getDefaultOrganizationId();
         const body = await request.json();
-        const { title, description, googleEventId, dueDate } = body;
+        const { title, description, googleEventId, dueDate, parentId, level } = body;
 
         if (!title || !googleEventId) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -38,7 +38,8 @@ export async function POST(request: NextRequest) {
                 description,
                 googleEventId,
                 status: "TODO",
-                level: 1, // Default to level 1
+                level: level || 1, // Default to level 1
+                parentId: parentId || null,
                 organizationId,
                 assigneeId: session.user.id,
                 dueDate: dueDate ? new Date(dueDate) : null

@@ -77,6 +77,34 @@
     color: var(--error);
 }
 
+.parentSelectContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.parentSelectLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.parentSelect {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.parentSelect:focus {
+    border-color: var(--brand);
+}
+
 .eventList {
     display: flex;
     flex-direction: column;

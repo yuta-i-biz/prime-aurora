@@ -16,10 +16,23 @@ type UnassignedEvent = {
     allDay: boolean;
 };
 
+type Task = {
+    id: string;
+    title: string;
+    level: number;
+    parentId: string | null;
+    dueDate: Date | null;
+    status: string;
+    description: string | null;
+    reflection: string | null;
+};
+
 export default function ImportEventModal({
+    initialTasks,
     onClose,
     onSuccess
 }: {
+    initialTasks: Task[];
     onClose: () => void;
     onSuccess: () => void;
 }) {
@@ -27,6 +40,7 @@ export default function ImportEventModal({
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [importingId, setImportingId] = useState<string | null>(null);
+    const [selectedParentId, setSelectedParentId] = useState<string | null>(null);
 
     useEffect(() => {
         async function fetchEvents() {
@@ -46,6 +60,9 @@ export default function ImportEventModal({
 
     const handleImport = async (event: UnassignedEvent) => {
         setImportingId(event.id);
+        const parentTask = initialTasks.find(t => t.id === selectedParentId);
+        const level = parentTask ? parentTask.level + 1 : 1;
+
         try {
             // We use the same server action to create a task
             // and pass the event.id so it knows it came from Google Calendar
@@ -57,6 +74,8 @@ export default function ImportEventModal({
                     description: event.description,
                     googleEventId: event.id,
                     dueDate: event.allDay ? new Date(event.start) : new Date(event.start),
+                    parentId: selectedParentId || undefined,
+                    level: level
                 })
             });
 
@@ -93,30 +112,47 @@ export default function ImportEventModal({
                             (本日の新しい予定はすべてタスク化されています)
                         </div>
                     ) : (
-                        <div className={styles.eventList}>
-                            {events.map(ev => {
-                                const startDate = new Date(ev.start);
-                                return (
-                                    <div key={ev.id} className={styles.eventItem}>
-                                        <div className={styles.eventInfo}>
-                                            <span className={styles.eventTitle}>{ev.title}</span>
-                                            <span className={styles.eventTime}>
-                                                <Clock size={14} />
-                                                {format(startDate, 'M月d日 (E)', { locale: ja })}
-                                                {!ev.allDay && ` ${format(startDate, 'HH:mm')}`}
-                                            </span>
+                        <>
+                            <div className={styles.parentSelectContainer}>
+                                <label className={styles.parentSelectLabel}>取り込み先:</label>
+                                <select
+                                    className={styles.parentSelect}
+                                    value={selectedParentId || ""}
+                                    onChange={(e) => setSelectedParentId(e.target.value || null)}
+                                >
+                                    <option value="">トップレベル (独立したタスクとして追加)</option>
+                                    {initialTasks.filter(t => t.level < 3).map(t => (
+                                        <option key={t.id} value={t.id}>
+                                            {t.level === 1 ? t.title : `　└ ${t.title}`}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className={styles.eventList}>
+                                {events.map(ev => {
+                                    const startDate = new Date(ev.start);
+                                    return (
+                                        <div key={ev.id} className={styles.eventItem}>
+                                            <div className={styles.eventInfo}>
+                                                <span className={styles.eventTitle}>{ev.title}</span>
+                                                <span className={styles.eventTime}>
+                                                    <Clock size={14} />
+                                                    {format(startDate, 'M月d日 (E)', { locale: ja })}
+                                                    {!ev.allDay && ` ${format(startDate, 'HH:mm')}`}
+                                                </span>
+                                            </div>
+                                            <button
+                                                className={styles.importBtn}
+                                                disabled={importingId === ev.id}
+                                                onClick={() => handleImport(ev)}
+                                            >
+                                                <Plus size={18} />
+                                            </button>
                                         </div>
-                                        <button
-                                            className={styles.importBtn}
-                                            disabled={importingId === ev.id}
-                                            onClick={() => handleImport(ev)}
-                                        >
-                                            <Plus size={18} />
-                                        </button>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                    );
+                                })}
+                            </div>
+                        </>
                     )}
                 </div>
             </div>

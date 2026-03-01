@@ -130,6 +130,7 @@ export default function TasksClient({ initialTasks }: { initialTasks: Task[] }) 
 
             {isImportModalOpen && (
                 <ImportEventModal
+                    initialTasks={initialTasks}
                     onClose={() => setIsImportModalOpen(false)}
                     onSuccess={() => {
                         setIsImportModalOpen(false);
