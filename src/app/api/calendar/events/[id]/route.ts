@@ -7,15 +7,15 @@ import { prisma } from "@/lib/prisma";
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id: eventId } = await params;
         const session = await getServerSession(authOptions);
         if (!session || !session.user || !session.user.id) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const eventId = params.id;
         const body = await request.json();
 
         // 1. Update on Google Calendar
@@ -57,15 +57,14 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id: eventId } = await params;
         const session = await getServerSession(authOptions);
         if (!session || !session.user || !session.user.id) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
-
-        const eventId = params.id;
 
         // 1. Delete on Google
         await deleteGoogleCalendarEvent(session.user.id, eventId);
