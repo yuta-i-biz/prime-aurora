@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Prime Aurora',
   webDir: 'www',
   server: {
-    url: 'https://あなたの-vercel-の-URL.vercel.app', // ここに本番URLを入れる
+    url: 'https://prime-aurora-xi.vercel.app',
     cleartext: true
   }
 };
