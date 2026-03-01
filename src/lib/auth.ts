@@ -30,18 +30,6 @@ export const authOptions: NextAuthOptions = {
         secret: process.env.NEXTAUTH_SECRET,
         maxAge: 30 * 24 * 60 * 60,
     },
-    // Ensure cookies are appropriate for dev env
-    cookies: {
-        sessionToken: {
-            name: "next-auth.session-token",
-            options: {
-                httpOnly: true,
-                sameSite: "lax",
-                path: "/",
-                secure: false,
-            },
-        },
-    },
     callbacks: {
         async jwt({ token, user, account }) {
             if (account) {
