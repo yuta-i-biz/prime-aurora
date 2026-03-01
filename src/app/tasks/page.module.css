@@ -1,0 +1,182 @@
+.tasksPage {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.iconButton {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: var(--card-shadow);
+}
+
+.iconButton:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+}
+
+.primaryButton {
+    background: linear-gradient(135deg, var(--brand), var(--brand-hover));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.primaryButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.btnIcon {
+    width: 18px;
+    height: 18px;
+}
+
+.taskListContainer {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    min-height: 50vh;
+}
+
+.taskTree {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.taskRow {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.taskRow:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+    .taskRow:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.expander {
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.iconSm {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--border);
+}
+
+.circle {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    margin-right: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.taskRow:hover .circle {
+    border-color: var(--brand);
+}
+
+.taskContent {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskTitle {
+    font-weight: 500;
+}
+
+.dueDate {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: var(--background);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+}
+
+.level1 {
+    padding-left: 0;
+}
+
+.level2 {
+    padding-left: 2rem;
+    border-left: 1px solid var(--border);
+    margin-left: 1.5rem;
+}
+
+.level3 {
+    padding-left: 2rem;
+    border-left: 1px solid var(--border);
+    margin-left: 1.5rem;
+}

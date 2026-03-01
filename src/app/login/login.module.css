@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--background);
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.05), transparent 25%);
+}
+
+.loginCard {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--card-shadow), 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--brand), var(--brand-hover));
+    color: white;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 2rem;
+    box-shadow: 0 8px 16px -4px rgba(59, 130, 246, 0.4);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--foreground);
+    letter-spacing: -0.03em;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 0 0 2.5rem 0;
+}
+
+.googleBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background-color: var(--background);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.googleBtn:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+    .googleBtn:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.googleIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.terms {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}

@@ -1,0 +1,229 @@
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+.navigation {
+    width: 260px;
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    transition: width 0.3s ease;
+    z-index: 10;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 0.75rem 2rem;
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--brand), var(--brand-hover));
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    box-shadow: var(--card-shadow);
+}
+
+.brandName {
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+.navLinks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.navSpacer {
+    flex-grow: 1;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.navItem:hover {
+    background-color: var(--border);
+    color: var(--foreground);
+}
+
+.navItem.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--brand);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.mainContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.header {
+    height: 72px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: rgba(23, 23, 23, 0.8);
+    }
+}
+
+.pageTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.iconButton {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.iconButton:hover {
+    background-color: var(--border);
+    color: var(--foreground);
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.contentWrapper {
+    flex-grow: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.mobileMenu {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .navigation {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 70px;
+        flex-direction: row;
+        padding: 0.5rem;
+        border-right: none;
+        border-top: 1px solid var(--border);
+        justify-content: space-around;
+        z-index: 100;
+    }
+
+    .brand,
+    .navSpacer,
+    .navLinks:last-child {
+        display: none;
+    }
+
+    .navLinks {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .navItem {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    .navItem .label {
+        font-size: 0.7rem;
+    }
+
+    .header {
+        padding: 0 1rem;
+    }
+
+    .mobileMenu {
+        display: block;
+        margin-right: 1rem;
+        color: var(--foreground);
+    }
+
+    .pageTitle {
+        flex-grow: 1;
+        font-size: 1.25rem;
+    }
+
+    .contentWrapper {
+        padding: 1rem;
+        padding-bottom: 90px;
+    }
+}

@@ -1,0 +1,276 @@
+.calendarPage {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.monthSelector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.currentMonth {
+    font-size: 1.25rem;
+    font-weight: 600;
+    min-width: 140px;
+    text-align: center;
+}
+
+.iconButton {
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.iconButton:hover {
+    background-color: var(--border);
+}
+
+.viewToggles {
+    display: flex;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.25rem;
+    box-shadow: var(--card-shadow);
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.toggleBtn.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--brand);
+}
+
+.toggleBtn:hover:not(.active) {
+    background-color: var(--border);
+    color: var(--foreground);
+}
+
+.calendarContainer {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    min-height: 60vh;
+}
+
+.daysHeader {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-bottom: 1px solid var(--border);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+    .daysHeader {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+}
+
+.dayName {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(120px, 1fr);
+    flex-grow: 1;
+}
+
+.calendarCell {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.calendarCell:nth-child(7n) {
+    border-right: none;
+}
+
+.calendarCell:hover {
+    background-color: rgba(59, 130, 246, 0.03);
+}
+
+.dateNumber {
+    font-weight: 500;
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.otherMonth .dateNumber {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.today .dateNumber {
+    background-color: var(--brand);
+    color: white;
+}
+
+.today {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.taskIndicators {
+    display: flex;
+    gap: 4px;
+}
+
+.taskDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.taskDot.blue {
+    background-color: var(--brand);
+}
+
+.taskDot.red {
+    background-color: var(--error);
+}
+
+.taskPreview {
+    background-color: var(--brand);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.taskPreviewTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.75rem;
+}
+
+.googleEventPreview {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.googleIconSmall {
+    width: 12px;
+    height: 12px;
+    color: #4CAF50;
+    flex-shrink: 0;
+}
+
+.loadingText {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-right: 12px;
+    align-self: center;
+}
+
+.errorText {
+    font-size: 0.8rem;
+    color: var(--error);
+    margin-right: 12px;
+    align-self: center;
+}
+
+.taskPreviewDone {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    text-decoration: line-through;
+}
+
+.taskDot.green {
+    background-color: #10b981;
+}
+
+.moreTasks {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    padding-left: 0.25rem;
+}
+
+@media (max-width: 768px) {
+    .calendarGrid {
+        grid-auto-rows: minmax(80px, 1fr);
+    }
+
+    .dayName {
+        font-size: 0.7rem;
+        padding: 0.5rem;
+    }
+
+    .taskPreview {
+        display: none;
+    }
+
+    .taskIndicators {
+        justify-content: center;
+    }
+}
