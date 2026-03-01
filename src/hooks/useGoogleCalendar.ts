@@ -37,7 +37,7 @@ export function useGoogleCalendar(currentMonth: Date) {
         }
 
         fetchEvents();
-    }, [currentMonth]);
+    }, [currentMonth.getFullYear(), currentMonth.getMonth()]);
 
     const syncNow = async () => {
         setLoading(true);

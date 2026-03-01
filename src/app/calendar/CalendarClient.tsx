@@ -199,34 +199,36 @@ export default function CalendarClient({ initialTasks }: { initialTasks: Task[] 
 
                 {/* --- WEEK VIEW (Simple columns) --- */}
                 {viewMode === 'week' && (
-                    <div className={styles.weekGrid}>
-                        {Array.from({ length: 7 }).map((_, i) => {
-                            const date = addDays(startOfWeek(currentDate), i);
-                            const { tasks, gcalEvents } = getTasksForDateObject(date);
-                            const isToday = isSameDay(date, new Date());
+                    <div className={styles.weekGridWrapper}>
+                        <div className={styles.weekGrid}>
+                            {Array.from({ length: 7 }).map((_, i) => {
+                                const date = addDays(startOfWeek(currentDate), i);
+                                const { tasks, gcalEvents } = getTasksForDateObject(date);
+                                const isToday = isSameDay(date, new Date());
 
-                            return (
-                                <div key={i} className={`${styles.weekColumn} ${isToday ? styles.todayCol : ''}`}>
-                                    <div className={styles.weekColumnHeader}>
-                                        <div className={styles.weekDayName}>{days[i]}</div>
-                                        <div className={`${styles.weekDateNum} ${isToday ? styles.todayNum : ''}`}>{date.getDate()}</div>
+                                return (
+                                    <div key={i} className={`${styles.weekColumn} ${isToday ? styles.todayCol : ''}`}>
+                                        <div className={styles.weekColumnHeader}>
+                                            <div className={styles.weekDayName}>{days[i]}</div>
+                                            <div className={`${styles.weekDateNum} ${isToday ? styles.todayNum : ''}`}>{date.getDate()}</div>
+                                        </div>
+                                        <div className={styles.weekEvents}>
+                                            {gcalEvents.map((ev: GoogleEvent) => (
+                                                <div key={ev.id} className={`${styles.detailedEventCard} ${styles.clickable}`} onClick={() => setSelectedEvent(ev)}>
+                                                    <div className={styles.eventTime}>{ev.start.dateTime ? format(new Date(ev.start.dateTime), 'HH:mm') : '終日'}</div>
+                                                    <div className={styles.eventTitle}>{ev.summary}</div>
+                                                </div>
+                                            ))}
+                                            {tasks.map(t => (
+                                                <div key={t.id} className={`${styles.detailedTaskCard} ${t.status === 'DONE' ? styles.detailedTaskDone : ''}`}>
+                                                    <div className={styles.eventTitle}>{t.title}</div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className={styles.weekEvents}>
-                                        {gcalEvents.map((ev: GoogleEvent) => (
-                                            <div key={ev.id} className={`${styles.detailedEventCard} ${styles.clickable}`} onClick={() => setSelectedEvent(ev)}>
-                                                <div className={styles.eventTime}>{ev.start.dateTime ? format(new Date(ev.start.dateTime), 'HH:mm') : '終日'}</div>
-                                                <div className={styles.eventTitle}>{ev.summary}</div>
-                                            </div>
-                                        ))}
-                                        {tasks.map(t => (
-                                            <div key={t.id} className={`${styles.detailedTaskCard} ${t.status === 'DONE' ? styles.detailedTaskDone : ''}`}>
-                                                <div className={styles.eventTitle}>{t.title}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
                     </div>
                 )}
 

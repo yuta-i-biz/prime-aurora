@@ -300,12 +300,19 @@
 }
 
 /* Week View Styles */
-.weekGrid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+.weekGridWrapper {
     flex-grow: 1;
+    overflow-x: auto;
     overflow-y: auto;
     min-height: 400px;
+}
+
+.weekGrid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(120px, 1fr));
+    min-width: 840px;
+    /* Force minimum width for 7 days */
+    height: 100%;
 }
 
 .weekColumn {
