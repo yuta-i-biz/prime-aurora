@@ -53,9 +53,7 @@ export async function syncEventsToDbCache(userId: string) {
 
         if (eventsToInsert.length > 0) {
             await prisma.cachedEvent.createMany({
-                data: eventsToInsert,
-                // In SQLite, skipDuplicates works but we also deleted them anyway
-                skipDuplicates: true
+                data: eventsToInsert
             });
         }
 
