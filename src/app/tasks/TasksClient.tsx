@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import { Plus, Filter, SortDesc, ChevronRight, ChevronDown } from "lucide-react";
 import NewTaskModal from "@/components/tasks/NewTaskModal";
 import EditTaskModal from "@/components/tasks/EditTaskModal";
+import ImportEventModal from "@/components/tasks/ImportEventModal";
 import { format } from "date-fns";
 
 type Task = {
@@ -20,6 +21,7 @@ type Task = {
 
 export default function TasksClient({ initialTasks }: { initialTasks: Task[] }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const [editingTask, setEditingTask] = useState<Task | null>(null);
     const [addingLevel, setAddingLevel] = useState<number>(1);
     const [addingParentId, setAddingParentId] = useState<string | null>(null);
@@ -84,6 +86,9 @@ export default function TasksClient({ initialTasks }: { initialTasks: Task[] }) 
                     <p className={styles.subtitle}>リスト形式で階層的にタスクを管理できます。</p>
                 </div>
                 <div className={styles.actions}>
+                    <button className={styles.iconButton} onClick={() => setIsImportModalOpen(true)} title="カレンダーから予定を取り込む">
+                        📅 取り込み
+                    </button>
                     <button className={styles.iconButton}>
                         <Filter className={styles.icon} />
                     </button>
@@ -120,6 +125,16 @@ export default function TasksClient({ initialTasks }: { initialTasks: Task[] }) 
                 <EditTaskModal
                     task={editingTask as any}
                     onClose={() => setEditingTask(null)}
+                />
+            )}
+
+            {isImportModalOpen && (
+                <ImportEventModal
+                    onClose={() => setIsImportModalOpen(false)}
+                    onSuccess={() => {
+                        setIsImportModalOpen(false);
+                        window.location.reload(); // Quick refresh to show new tasks, Next.js revalidatePath handles server cache
+                    }}
                 />
             )}
         </div>

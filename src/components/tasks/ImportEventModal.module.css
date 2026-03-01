@@ -1,0 +1,164 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.modalContent {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.2s ease-out;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.modalTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.closeBtn:hover {
+    background-color: var(--border);
+    color: var(--text-primary);
+}
+
+.modalBody {
+    padding: 1.25rem;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.loading,
+.error,
+.empty {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+}
+
+.error {
+    color: var(--error);
+}
+
+.eventList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.eventItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--background);
+    transition: border-color 0.2s;
+}
+
+.eventItem:hover {
+    border-color: var(--brand);
+}
+
+.eventInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.eventTitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.eventTime {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.importBtn {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--brand);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.importBtn:hover:not(:disabled) {
+    background-color: var(--brand);
+    color: white;
+}
+
+.importBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
