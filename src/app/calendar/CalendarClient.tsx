@@ -15,7 +15,7 @@ type Task = {
 
 export default function CalendarClient({ initialTasks }: { initialTasks: Task[] }) {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const { events: googleEvents, loading: isGoogleLoading, error: googleError } = useGoogleCalendar(currentDate);
+    const { events: googleEvents, loading: isGoogleLoading, error: googleError, syncNow } = useGoogleCalendar(currentDate);
 
     const days = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -93,6 +93,9 @@ export default function CalendarClient({ initialTasks }: { initialTasks: Task[] 
                 <div className={styles.viewToggles}>
                     {isGoogleLoading && <span className={styles.loadingText}>同期中...</span>}
                     {googleError && <span className={styles.errorText} title={googleError}>同期エラー</span>}
+                    <button className={styles.refreshBtn} onClick={syncNow} disabled={isGoogleLoading}>
+                        🔄 手動で同期
+                    </button>
                     <button className={`${styles.toggleBtn} ${styles.active}`}>月</button>
                     <button className={styles.toggleBtn}>週</button>
                     <button className={styles.toggleBtn}>日</button>

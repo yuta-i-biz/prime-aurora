@@ -89,6 +89,30 @@
     color: var(--foreground);
 }
 
+.refreshBtn {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.refreshBtn:hover:not(:disabled) {
+    background-color: var(--border);
+    color: var(--foreground);
+}
+
+.refreshBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .calendarContainer {
     background-color: var(--card-bg);
     border: 1px solid var(--border);

@@ -45,6 +45,7 @@ model User {
   sessions      Session[]
   tasks         Task[]
   memberships   OrganizationMember[]
+  cachedEvents  CachedEvent[]
 }
 
 model VerificationToken {
@@ -97,4 +98,20 @@ model Task {
   
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   assignee       User?        @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+}
+
+model CachedEvent {
+  id          String   @id @default(cuid())
+  userId      String   // The user this event belongs to
+  eventId     String   // Google Calendar Event ID
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  allDay      Boolean  @default(false)
+  updatedAt   DateTime @updatedAt // Last sync time
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId]) // Make sure we don't duplicate events per user
 }

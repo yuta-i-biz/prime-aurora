@@ -8,6 +8,9 @@ import {
     deleteGoogleCalendarEvent,
 } from "@/lib/google-calendar";
 
+import { syncEventsToDbCache } from "@/lib/sync-calendar";
+import { prisma } from "@/lib/prisma";
+
 export async function GET(request: NextRequest) {
     try {
         const session = await getServerSession(authOptions);
@@ -26,13 +29,31 @@ export async function GET(request: NextRequest) {
             ? new Date(endStr)
             : new Date(new Date().setMonth(new Date().getMonth() + 2));
 
-        const events = await listGoogleCalendarEvents(
-            session.user.id,
-            timeMin,
-            timeMax
-        );
+        // 1. Instantly return locally cached events (Fast path)
+        const cachedEvents = await prisma.cachedEvent.findMany({
+            where: {
+                userId: session.user.id,
+                startTime: { gte: timeMin },
+                endTime: { lte: timeMax }
+            },
+            orderBy: { startTime: 'asc' }
+        });
 
-        return NextResponse.json(events);
+        // 2. Trigger background sync without awaiting its finish (Stale-While-Revalidate pattern)
+        // Note: In Next.js App Router, floating promises in Route Handlers can be canceled by Vercel if the response returns. 
+        // For absolute consistency, we use `waitUntil` if available, or just standard async execution for local dev
+        Promise.resolve(syncEventsToDbCache(session.user.id)).catch(console.error);
+
+        // Convert db row formats back to the format the frontend expects temporarily to minimize refactor:
+        const mappedForFrontend = cachedEvents.map(dbEvent => ({
+            id: dbEvent.eventId,
+            summary: dbEvent.title,
+            description: dbEvent.description,
+            start: dbEvent.allDay ? { date: dbEvent.startTime.toISOString().split('T')[0] } : { dateTime: dbEvent.startTime.toISOString() },
+            end: dbEvent.allDay ? { date: dbEvent.endTime.toISOString().split('T')[0] } : { dateTime: dbEvent.endTime.toISOString() },
+        }));
+
+        return NextResponse.json(mappedForFrontend);
     } catch (error: any) {
         console.error("Google Calendar GET Error:", error);
         return NextResponse.json(
