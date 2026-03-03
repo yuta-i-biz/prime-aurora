@@ -165,6 +165,21 @@
     border: 1px solid var(--border);
 }
 
+.dueDate.overdue {
+    color: #ef4444;
+    /* Error red */
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    font-weight: 500;
+}
+
+.dueDate.todayDue {
+    color: var(--brand);
+    background: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.2);
+    font-weight: 500;
+}
+
 .level1 {
     padding-left: 0;
 }
@@ -179,4 +194,205 @@
     padding-left: 2rem;
     border-left: 1px solid var(--border);
     margin-left: 1.5rem;
+}
+
+/* --- View Toggles --- */
+.viewToggles {
+    display: flex;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.25rem;
+    gap: 0.25rem;
+}
+
+.toggleBtn {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.toggleBtn.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--brand);
+}
+
+.toggleBtn:hover:not(.active) {
+    background-color: var(--border);
+    color: var(--foreground);
+}
+
+.activeFilter {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: var(--brand);
+    color: var(--brand);
+}
+
+/* --- Tasks Calendar View --- */
+.tasksCalendar {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.calendarNav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.currentMonth {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.daysHeader {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(80px, 1fr);
+    gap: 1px;
+    background-color: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.calendarCell {
+    background-color: var(--card-bg);
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.calendarCell.otherMonth {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+@media (prefers-color-scheme: dark) {
+    .calendarCell.otherMonth {
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+}
+
+.today {
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.dateNumber {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 2px 6px;
+    border-radius: 12px;
+    align-self: flex-start;
+}
+
+.today .dateNumber {
+    background-color: var(--brand);
+    color: white;
+}
+
+.taskItemCompact {
+    font-size: 0.75rem;
+    background-color: var(--border);
+    padding: 2px 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-left: 2px solid var(--brand);
+    cursor: pointer;
+}
+
+.taskItemCompact.done {
+    opacity: 0.6;
+    text-decoration: line-through;
+    border-left-color: #10b981;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .viewToggles {
+        order: -1;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .toggleBtn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .primaryButton {
+        flex-grow: 1;
+        justify-content: center;
+    }
+
+    .taskContent {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .taskMetaGroup {
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
+    }
+
+    .level2 {
+        padding-left: 1rem;
+        margin-left: 0.75rem;
+    }
+
+    .level3 {
+        padding-left: 1rem;
+        margin-left: 0.75rem;
+    }
+
+    /* Make Calendar horizontally scrollable on small screens to prevent shrinking too much */
+    .calendarGrid {
+        min-width: 600px;
+    }
+
+    .daysHeader {
+        min-width: 600px;
+    }
+
+    .tasksCalendar {
+        overflow-x: auto;
+    }
 }
